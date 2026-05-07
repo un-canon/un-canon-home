@@ -1,0 +1,500 @@
+/* FOT-Matisse Pro — Fontworks geometric gothic, used for the centre
+   CJK wordmark. Weights mapped to CSS ranges: L=300, M=500, B=700,
+   DB=800, EB=850, UB=900. */
+@font-face{font-family:"Matisse Pro";src:url("fonts/FOT-MatissePro-L.otf") format("opentype");font-weight:300;font-style:normal;font-display:block}
+@font-face{font-family:"Matisse Pro";src:url("fonts/FOT-MatissePro-M.otf") format("opentype");font-weight:500;font-style:normal;font-display:block}
+@font-face{font-family:"Matisse Pro";src:url("fonts/FOT-MatissePro-B.otf") format("opentype");font-weight:700;font-style:normal;font-display:block}
+@font-face{font-family:"Matisse Pro";src:url("fonts/FOT-MatissePro-DB.otf") format("opentype");font-weight:800;font-style:normal;font-display:block}
+@font-face{font-family:"Matisse Pro";src:url("fonts/FOT-MatissePro-EB.otf") format("opentype");font-weight:850;font-style:normal;font-display:block}
+@font-face{font-family:"Matisse Pro";src:url("fonts/FOT-MatissePro-UB.otf") format("opentype");font-weight:900;font-style:normal;font-display:block}
+@font-face{font-family:"CAI978";src:url("fonts/CAI978.ttf") format("truetype");font-weight:400;font-style:normal;font-display:block}
+
+:root{
+  --paper:#EFEAE0;
+  --paper-edge:#E4DECE;
+  --ink:#111111;
+  --ink-soft:rgba(17,17,17,0.58);
+  --ink-line:rgba(17,17,17,0.18);
+  --verm:#C23A2B;
+  /* Reflow unit: 1 at 3840w, 0.5 at 1920w, clamps at extremes. */
+  --u:clamp(0.5px, 0.026vw, 1px);
+  --f-display:"Big Shoulders Display","Noto Sans JP",sans-serif;
+  --f-serif:"IBM Plex Serif","Noto Serif JP","Noto Serif SC",Georgia,serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --f-mono-cjk:"IBM Plex Mono","Noto Sans JP","Noto Sans SC",ui-monospace,Menlo,monospace;
+  --f-cjk-serif:"Noto Serif JP","Noto Serif SC",Georgia,serif;
+  --f-cjk-serif-sc:"Noto Serif SC","Noto Serif JP",Georgia,serif;
+}
+html[data-theme="dark"]{
+  --paper:#0E0E0E;
+  --paper-edge:#151515;
+  --ink:#EFEAE0;
+  --ink-soft:rgba(239,234,224,0.62);
+  --ink-line:rgba(239,234,224,0.18);
+  --verm:#E85646;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;height:100%}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--f-serif);
+  font-size:calc(30 * var(--u));line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  display:flex;flex-direction:column;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+/* (canvas wrapper removed — body is now the reflow root) */
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:transparent;border:0;cursor:pointer;padding:0}
+::selection{background:var(--verm);color:var(--paper)}
+
+/* ── Top strip ───────────────────────────────── */
+.wu-top{
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  gap:calc(48 * var(--u));
+  align-items:center;
+  padding:calc(28 * var(--u)) calc(56 * var(--u));
+  font-family:var(--f-mono-cjk);
+  font-size:calc(21 * var(--u));
+  letter-spacing:0.22em;
+  text-transform:uppercase;
+}
+.wu-ticker{display:flex;gap:calc(36 * var(--u));align-items:center;color:var(--ink-soft);white-space:nowrap;overflow:hidden}
+.wu-ticker .sep{color:var(--verm)}
+.wu-ticker .cjk{font-family:var(--f-mono-cjk);letter-spacing:0.14em;text-transform:none;font-size:calc(22 * var(--u))}
+
+/* Colour register bar — lives at the head of the ticker, just to the
+   left of "Under Construction". Four tiny swatches echoing the
+   print-shop calibration strip. */
+.wu-cbar{display:flex;gap:calc(6 * var(--u));align-items:center;margin-right:calc(12 * var(--u));flex:none}
+.wu-cbar i{
+  display:block;width:calc(40 * var(--u));height:calc(40 * var(--u));
+  background:var(--cb);
+  border:1px solid var(--cb-border,transparent);
+}
+.wu-cbar .m{--cb:#C23A2B}            /* 朱红 */
+.wu-cbar .k{--cb:#000000}            /* 纯黑 */
+.wu-cbar .c{--cb:#EFEAE0;--cb-border:var(--ink-line)}  /* 米白 */
+.wu-cbar .w{--cb:#111111;--cb-border:var(--ink-line)}  /* 墨黑 */
+.wu-issue{
+  font-family:var(--f-mono-cjk);
+  letter-spacing:0.2em;
+  color:var(--ink-soft);
+  text-align:center;
+}
+.wu-issue b{color:var(--verm);font-weight:500;letter-spacing:0.2em}
+.wu-th{justify-self:end;display:flex;align-items:center;gap:calc(20 * var(--u));color:var(--ink-soft)}
+.wu-th button{
+  width:calc(40 * var(--u));height:calc(40 * var(--u));
+  border:1px solid var(--ink-line);
+  display:inline-flex;align-items:center;justify-content:center;
+  font-size:calc(20 * var(--u));color:var(--ink-soft);
+}
+.wu-th button.is-active{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+
+/* Lang indicator button — same 20×20 footprint, 2-letter code. */
+#lang-ind{
+  font-family:var(--f-mono-cjk);
+  font-size:calc(18 * var(--u));
+  letter-spacing:0.02em;
+  line-height:1;
+  font-weight:500;
+  padding:0 calc(4 * var(--u));
+}
+
+/* ── Stage ───────────────────────────────────── */
+.wu-stage{
+  flex:1;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:calc(144 * var(--u)) calc(56 * var(--u)) calc(96 * var(--u));
+  position:relative;
+}
+
+/* Margin line-number notes — tiny faint numerals in the LEFT margin
+   (vertical, 0–48 scale with 05–45 shown) and along the TOP edge
+   (horizontal, 0–77 scale with 05–75 shown). Anchored between the
+   corner registration marks. */
+/* Background grid lines aligned to the 10-step margin numerals.
+   Span only the area between the two L-markers, with a small GAP
+   at each end so line-ends don't touch the marker inner angles. */
+.wu-gridline{
+  position:absolute;
+  background:var(--ink-line);
+  pointer-events:none;
+  z-index:0;
+}
+.wu-gridline.h{height:1px}
+.wu-gridline.v{width:1px}
+
+.wu-marginnum{
+  position:absolute;
+  font-family:var(--f-mono-cjk);
+  font-size:calc(18 * var(--u));
+  letter-spacing:0.12em;
+  color:var(--ink-soft);
+  pointer-events:none;
+  user-select:none;
+}
+.wu-marginnum.v{
+  transform:translateY(-50%);
+}
+.wu-marginnum.h{
+  transform:translateX(-50%);
+}
+
+/* corner marks, subtle. Positions set by JS to enforce 77:48
+   horizontal:vertical distance between TL-inner and BR-inner angles. */
+.wu-stage::before,.wu-stage::after{
+  content:"";position:absolute;width:calc(36 * var(--u));height:calc(36 * var(--u));
+  border:1px solid var(--ink);
+  opacity:1;
+}
+.wu-stage::before{top:var(--mk-tl-top,calc(36 * var(--u)));left:var(--mk-tl-left,calc(28 * var(--u)));border-right:0;border-bottom:0}
+.wu-stage::after{top:var(--mk-br-top,auto);left:var(--mk-br-left,auto);border-left:0;border-top:0}
+
+.wu-seal{
+  width:calc(296 * var(--u));height:calc(296 * var(--u));
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:calc(20 * var(--u));
+  position:relative;
+}
+.wu-seal img{width:100%;height:100%;object-fit:contain;display:block}
+.wu-seal.dark-only{display:none}
+html[data-theme="dark"] .wu-seal.light-only{display:none}
+html[data-theme="dark"] .wu-seal.dark-only{display:flex}
+
+/* In dark mode, render the inverse PNG tinted to --ink (米白) instead
+   of hard white, so it matches the body type colour. PNG is used as
+   an alpha mask with a solid fill layer. */
+html[data-theme="dark"] .wu-seal.dark-only img{
+  visibility:hidden;
+}
+html[data-theme="dark"] .wu-seal.dark-only{
+  background-color:var(--ink);
+  -webkit-mask:url("images/logo-round-inverse.png") center/contain no-repeat;
+          mask:url("images/logo-round-inverse.png") center/contain no-repeat;
+}
+
+/* Main wordmarks are display type — prevent text-selection so the
+   hover wash stays clean. Extend to header / footer / welcome for
+   visual consistency; body socials remain selectable. */
+.wu-wordmark, .wu-cjkmark,
+.wu-top, .wu-foot, .wu-welcome-wrap, .wu-seal{
+  user-select:none;
+  -webkit-user-select:none;
+}
+
+.wu-wordmark{
+  font-family:"CAI978","Big Shoulders Display",Impact,"Haettenschweiler",sans-serif;
+  font-weight:400;
+  font-style:italic;
+  font-size:min(calc(260 * var(--u)), 17vw);
+  line-height:0.85;letter-spacing:0.01em;
+  text-transform:uppercase;
+  display:flex;align-items:center;justify-content:center;
+  gap:0.02em;
+}
+.wu-wordmark .un{color:var(--verm)}
+.wu-wordmark .dash{
+  display:inline-block;
+  width:0.45em;height:0.1em;
+  background:currentColor;
+  margin:0 0.06em;
+  vertical-align:0.28em;
+}
+
+/* Fixed-height slot that both wordmark variants share — prevents reflow
+   when switching locales. Tuned to the taller variant (Latin @ calc(168 * var(--u))). */
+.wu-markslot{
+  position:relative;
+  z-index:1;
+  width:100%;
+  display:flex;align-items:center;justify-content:center;
+  height:calc(320 * var(--u));
+  margin:calc(8 * var(--u)) 0 calc(20 * var(--u));
+}
+.wu-markslot > *{margin:0}
+
+/* ── CJK wordmark (display-size, struck on the "west" half) ── */
+.wu-cjkmark{
+  font-family:"Matisse Pro","Noto Serif JP","Noto Serif SC",serif;
+  font-weight:700;
+  font-size:min(calc(316 * var(--u)), 21vw);
+  /* Fixed visual box so font-metric differences between Matisse Pro and
+     fallbacks (esp. Noto Serif JP) don't shift the wordmark vertically
+     during/after locale swap. Height matches font-size at line-height:1. */
+  height:1em;
+  line-height:1;
+  letter-spacing:0.04em;
+  color:var(--ink);
+  display:flex;align-items:center;justify-content:center;
+  white-space:nowrap;
+  font-synthesis:none;
+}
+.wu-cjkmark .neg{
+  position:relative;
+  display:inline-block;
+  color:var(--ink);
+}
+/* Vermillion strike line over the "west" half (西洋 / 西方).
+   Previous hover-wipe + click-lock behaviour archived in
+   notes/cjk-wordmark-hover-lock.md */
+.wu-cjkmark .neg::after{
+  content:"";
+  position:absolute;
+  left:0;right:0;
+  top:50%;
+  height:0.085em;
+  background:var(--verm);
+  transform:translateY(-50%);
+  pointer-events:none;
+  z-index:2;
+}
+
+/* Latin wordmark hides at display size on CJK locales;
+   CJK wordmark shows only on CJK locales. Latin stays for EN/DE. */
+.wu-cjkmark{display:none}
+html[data-locale="ja"] .wu-wordmark,
+html[data-locale="zh"] .wu-wordmark{display:none}
+html[data-locale="ja"] .wu-cjkmark-ja,
+html[data-locale="zh"] .wu-cjkmark-zh{display:flex}
+
+.wu-cjk{
+  font-family:var(--f-cjk-serif);
+  font-weight:500;
+  font-size:calc(68 * var(--u));
+  letter-spacing:0.42em;
+  color:var(--ink);
+  display:flex;align-items:center;justify-content:center;gap:calc(28 * var(--u));
+  /* Fixed box height + fixed padding = identical across all locales */
+  height:calc(132 * var(--u));
+  padding:0;
+  margin:calc(12 * var(--u)) 0 calc(36 * var(--u));
+}
+.wu-cjk .dot{color:var(--verm);letter-spacing:0;font-weight:400;user-select:none;-webkit-user-select:none}
+/* letter-spacing trails the last glyph, so the left group ends up
+   ~0.42em further from the centre dot than the right group.
+   Pull the left group back by that amount to re-centre the dot. */
+.wu-cjk .wu-cjk-zh{margin-right:-0.42em}
+/* Locale-specific subtitle: hide content without collapsing space */
+html[data-locale="ja"] .wu-cjk,
+html[data-locale="zh"] .wu-cjk { visibility:hidden }
+html[data-locale="en"] .wu-cjk,
+html[data-locale="de"] .wu-cjk{
+  font-family:"Matisse Pro","Noto Serif JP","Noto Serif SC",serif;
+  font-weight:700;
+  font-size:calc(44 * var(--u));
+  letter-spacing:0.5em;
+  color:var(--ink-soft);
+}
+html[data-locale="en"] .wu-cjk .dot,
+html[data-locale="de"] .wu-cjk .dot{color:var(--ink-soft)}
+
+/* When locale is Simplified Chinese, flip the CJK serif stack so
+   Noto Serif SC renders shared ideographs (关, 联 etc.) with proper
+   SC glyphs instead of JP fallback forms. The centre .wu-cjkmark
+   is excluded — it uses Matisse Pro for all locales. */
+html[data-locale="zh"] .wu-cjk,
+html[data-locale="zh"] .wu-welcome,
+html[data-locale="zh"] .wu-soc-k{
+  font-family:var(--f-cjk-serif-sc);
+}
+/* ZH centre wordmark: keep Matisse first, but fall back to SC serif */
+html[data-locale="zh"] .wu-cjkmark{
+  font-family:"Matisse Pro","Noto Serif SC","Noto Serif JP",serif;
+}
+
+.wu-rule{
+  width:min(calc(1040 * var(--u)),60%);
+  height:2px;background:var(--ink);
+  margin:calc(20 * var(--u)) 0 calc(44 * var(--u));
+  position:relative;
+}
+.wu-rule::before,.wu-rule::after{
+  content:"";position:absolute;top:-calc(6 * var(--u));width:2px;height:calc(14 * var(--u));background:var(--ink);
+}
+.wu-rule::before{left:0}.wu-rule::after{right:0}
+
+/* ── Print-shop colour calibration bar ───────────
+   A small swatch strip sitting between the rule and the welcome
+   line. Mimics the CMYK register bar printed in the gutter of
+   a proof sheet. Purely decorative — signals "pre-launch / test print". */
+.wu-colorbar{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:calc(4 * var(--u));
+  margin:calc(36 * var(--u)) 0 calc(28 * var(--u));
+}
+.wu-cb-cell{
+  position:relative;
+  width:calc(68 * var(--u));height:calc(24 * var(--u));
+  display:flex;align-items:flex-end;justify-content:center;
+}
+.wu-cb-cell::before{
+  content:"";
+  position:absolute;inset:0;
+  background:var(--cb);
+  border:1px solid var(--cb-border,transparent);
+}
+.wu-cb-cell .lab{
+  position:absolute;
+  top:100%;margin-top:calc(10 * var(--u));
+  font-family:var(--f-mono-cjk);
+  font-size:calc(16 * var(--u));
+  letter-spacing:0.16em;
+  color:var(--ink-line);
+  text-transform:uppercase;
+}
+.wu-cb-verm  { --cb: var(--verm); }
+.wu-cb-ink   { --cb: var(--ink); }
+.wu-cb-grey  { --cb: var(--paper-edge); }
+.wu-cb-paper {
+  --cb: var(--paper);
+  --cb-border: var(--ink-line);
+}
+
+/* welcome line — rotates */
+.wu-welcome-wrap{
+  /* Reserve room for up to 2 lines at the heaviest locale (DE wraps) */
+  min-height:calc(160 * var(--u));
+  display:flex;align-items:center;justify-content:center;
+  text-align:center;
+  margin-bottom:calc(6 * var(--u));
+}
+.wu-welcome{
+  font-family:var(--f-serif);
+  font-weight:400;font-style:italic;
+  font-size:calc(44 * var(--u));line-height:1.35;
+  max-width:36ch;text-wrap:balance;
+}
+.wu-welcome.lang-ja,.wu-welcome.lang-zh{
+  font-family:var(--f-cjk-serif);
+  font-style:normal;font-weight:500;
+  font-size:calc(44 * var(--u));letter-spacing:0.06em;line-height:1.5;
+}
+/* Synchronised locale-swap fade.
+   When <html> gets .is-l10n-swapping, every localised region fades out
+   together. Text is swapped while invisible, then the class is removed
+   and they fade back in in sync. */
+.wu-markslot,
+.wu-cjk,
+.wu-welcome-wrap,
+#wu-ticker-text, .wu-issue, .wu-th,
+.wu-socials,
+.wu-foot .l, .wu-foot .r{
+  transition:opacity 180ms ease;
+}
+html.is-l10n-swapping .wu-markslot,
+html.is-l10n-swapping .wu-cjk,
+html.is-l10n-swapping .wu-welcome-wrap,
+html.is-l10n-swapping #wu-ticker-text,
+html.is-l10n-swapping .wu-issue,
+html.is-l10n-swapping .wu-th,
+html.is-l10n-swapping .wu-socials,
+html.is-l10n-swapping .wu-foot .l,
+html.is-l10n-swapping .wu-foot .r{
+  opacity:0;
+}
+
+/* language dots */
+.wu-langs{
+  display:flex;gap:calc(28 * var(--u));align-items:center;justify-content:center;
+  margin-top:calc(36 * var(--u));
+  font-family:var(--f-mono-cjk);font-size:calc(20 * var(--u));letter-spacing:0.22em;
+  color:var(--ink-soft);
+}
+.wu-lang-btn{
+  display:flex;align-items:center;gap:calc(12 * var(--u));
+  padding:calc(8 * var(--u)) calc(4 * var(--u));
+  position:relative;
+}
+.wu-lang-btn .pip{
+  width:calc(16 * var(--u));height:calc(16 * var(--u));border:1px solid currentColor;
+  display:inline-block;
+}
+.wu-lang-btn.is-active{color:var(--ink)}
+.wu-lang-btn.is-active .pip{background:var(--verm);border-color:var(--verm)}
+
+/* socials */
+.wu-socials{
+  margin-top:calc(88 * var(--u));
+  display:grid;grid-template-columns:auto 1fr;gap:calc(16 * var(--u)) calc(36 * var(--u));align-items:baseline;
+  font-family:var(--f-mono-cjk);font-size:calc(22 * var(--u));letter-spacing:0.14em;
+  color:var(--ink-soft);
+  text-transform:uppercase;
+}
+.wu-soc-k{
+  font-family:var(--f-cjk-serif);
+  font-size:calc(24 * var(--u));letter-spacing:0.3em;color:var(--ink);
+  text-transform:none;
+}
+/* Latin-locale keys: same size/font, just tighter tracking */
+html[data-locale="en"] .wu-soc-k,
+html[data-locale="de"] .wu-soc-k{
+  letter-spacing:0.08em;
+}
+.wu-soc-v{display:flex;gap:calc(12 * var(--u));flex-wrap:wrap;align-items:baseline}
+.wu-soc-v .dash{color:var(--ink-line)}
+.wu-soc-v a{
+  border-bottom:1px solid transparent;
+  padding-bottom:1px;
+  transition:border-color 120ms,color 120ms;
+  color:var(--ink);
+}
+.wu-soc-v a:hover{color:var(--verm);border-color:var(--verm)}
+.wu-soc-v .mail{color:var(--ink)}
+
+/* bottom strip */
+.wu-foot{
+  display:grid;grid-template-columns:1fr auto 1fr;
+  padding:calc(32 * var(--u)) calc(56 * var(--u));
+  font-family:var(--f-mono-cjk);font-size:calc(20 * var(--u));letter-spacing:0.22em;
+  color:var(--ink-soft);
+  text-transform:uppercase;
+}
+.wu-foot .c{text-align:center}
+.wu-foot .r{text-align:right}
+.wu-foot b{color:var(--verm);font-weight:500}
+
+/* small screens — rescale --u so the 1920-design fits narrow viewports.
+   At 430w we want roughly the same proportions as 1920w. We let --u track
+   vw on phones (1vw≈4.3px on iPhone 14 Pro), capped so it never exceeds
+   the desktop value. */
+@media (max-width:760px){
+  :root{ --u: clamp(0.22px, 0.18vw, 0.5px); }
+  html,body{overflow-x:hidden}
+  /* welcome line + cjk row don't break on their own — give them a vw cap */
+  .wu-cjk     { font-size: min(calc(68 * var(--u)),  6.4vw); }
+  .wu-cjk .dot{ font-size: min(calc(44 * var(--u)),  4.6vw); }
+  .wu-welcome { font-size: min(calc(44 * var(--u)),  4.6vw); max-width:90vw; }
+  .wu-top{
+    grid-template-columns:1fr auto;
+    grid-template-rows:auto auto;
+    padding:calc(40 * var(--u)) calc(48 * var(--u));
+    gap:calc(16 * var(--u));
+    font-size:calc(28 * var(--u));
+  }
+  .wu-ticker{grid-column:1 / -1; order:2}
+  .wu-issue{order:0}
+  .wu-th{order:1; justify-self:end}
+  .wu-foot{
+    grid-template-columns:1fr;gap:calc(12 * var(--u));text-align:center;
+    padding:calc(40 * var(--u)) calc(48 * var(--u));
+  }
+  .wu-foot .r,.wu-foot .l{text-align:center}
+  .wu-socials{
+    grid-template-columns:1fr;gap:calc(8 * var(--u));
+    text-align:center;justify-items:center;
+    margin-top:calc(56 * var(--u));
+  }
+  /* Side rail arrows: keep visible but smaller and out of the way */
+  .wu-rail-l,.wu-rail-r{display:none}
+}
+@media (max-width:480px){
+  :root{ --u: clamp(0.18px, 0.16vw, 0.4px); }
+}
