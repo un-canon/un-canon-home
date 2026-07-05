@@ -20,7 +20,7 @@
   const ISSUEDATE = { ja: "2026年秋冬", zh: "2026年秋冬", en: "2026.Q4", de: "Ende 2026" };
   const THEME_LBL = { ja: "主題", zh: "主题", en: "Theme", de: "Thema" };
   const LANG_LBL = { ja: "言語", zh: "语言", en: "Lang", de: "Sprache" };
-  const FOOT_BRAND = { ja: "西洋負典", zh: "西方負典", en: "UN-CANON", de: "UN-CANON" };
+  const FOOT_BRAND = { ja: "西方負典", zh: "西方負典", en: "UN-CANON", de: "UN-CANON" };
   const FOOT_RIGHTS = {
     ja: "権利<b>留保なし</b>",
     zh: "翻印<b>不究</b>",

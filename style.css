@@ -240,7 +240,7 @@ html[data-theme="dark"] .wu-seal.dark-only{
   display:inline-block;
   color:var(--ink);
 }
-/* Vermillion strike line over the "west" half (西洋 / 西方).
+/* Vermillion strike line over the "west" half.
    Previous hover-wipe + click-lock behaviour archived in
    notes/cjk-wordmark-hover-lock.md */
 .wu-cjkmark .neg::after{
@@ -276,10 +276,7 @@ html[data-locale="zh"] .wu-cjkmark-zh{display:flex}
   margin:calc(12 * var(--u)) 0 calc(36 * var(--u));
 }
 .wu-cjk .dot{color:var(--verm);letter-spacing:0;font-weight:400;user-select:none;-webkit-user-select:none}
-/* letter-spacing trails the last glyph, so the left group ends up
-   ~0.42em further from the centre dot than the right group.
-   Pull the left group back by that amount to re-centre the dot. */
-.wu-cjk .wu-cjk-zh{margin-right:-0.42em}
+.wu-cjk .wu-cjk-brand{display:inline-block}
 /* Locale-specific subtitle: hide content without collapsing space */
 html[data-locale="ja"] .wu-cjk,
 html[data-locale="zh"] .wu-cjk { visibility:hidden }
@@ -287,7 +284,7 @@ html[data-locale="en"] .wu-cjk,
 html[data-locale="de"] .wu-cjk{
   font-family:"Matisse Pro","Noto Serif JP","Noto Serif SC",serif;
   font-weight:700;
-  font-size:calc(44 * var(--u));
+  font-size:calc(46 * var(--u));
   letter-spacing:0.5em;
   color:var(--ink-soft);
 }
